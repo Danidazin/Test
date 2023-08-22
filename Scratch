@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #scratch-card {
+            width: 300px;
+            height: 200px;
+            background: url('background-image.jpg') no-repeat;
+            position: relative;
+            cursor: pointer;
+        }
+
+        #revealing-layer {
+            width: 100%;
+            height: 100%;
+            background: url('revealing-layer.jpg') no-repeat;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="scratch-card">
+        <div id="revealing-layer"></div>
+    </div>
+
+    <script>
+        const card = document.getElementById('scratch-card');
+        const revealingLayer = document.getElementById('revealing-layer');
+        let isScratching = false;
+
+        card.addEventListener('mousedown', () => {
+            isScratching = true;
+        });
+
+        card.addEventListener('mouseup', () => {
+            isScratching = false;
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            if (isScratching) {
+                const x = e.clientX - card.getBoundingClientRect().left;
+                const y = e.clientY - card.getBoundingClientRect().top;
+                revealingLayer.style.clipPath = `circle(20px at ${x}px ${y}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
